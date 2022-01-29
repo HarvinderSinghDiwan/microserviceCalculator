@@ -2,11 +2,11 @@
 date=2
 while [ $date -le 30 ]
 do
-	powershell set-date -date $date-12-2020
-	for i in {0..100}
+	powershell set-date -date $date-01-2022
+	for i in {0..10}
 	do
-		echo hello >>  f.txt
-		git commit f.txt -m "any comment"
+		echo hello >>  config.py
+		git commit config.py -m "any commenear"
 	done
 	((date=date+1))
 done
