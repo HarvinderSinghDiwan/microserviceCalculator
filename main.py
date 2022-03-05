@@ -39,7 +39,7 @@ def add():
     x=int(args.get('fnum'))
     y=int(args.get('lnum'))
     if session:
-        result=requests.get("http://{}addition?x={}&y={}".format(app.config['ADDITION'],x,y))
+        result=requests.get("http://{}/addition?x={}&y={}".format(app.config['ADDITION'],x,y))
         
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
                                                                                             successfully and the SUM is given below""",result.text)
@@ -60,7 +60,7 @@ def multiply():
     x=int(args.get('fnum'))
     y=int(args.get('lnum'))
     if session:
-        result=requests.get("http://{}multiplication?x={}&y={}".format(app.config['MULTIPLICATION'],x,y))
+        result=requests.get("http://{}/multiplication?x={}&y={}".format(app.config['MULTIPLICATION'],x,y))
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
                                                                                             successfully and the PRODUCT is given below""",result.text)
     return genAuth()
