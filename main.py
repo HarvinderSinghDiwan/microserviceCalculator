@@ -24,19 +24,21 @@ def genAuth():
     data = res.read()
     bearer_token=data.decode("utf-8").split(",")
     session['name']=bearer_token
-    return str(open("index_style.css","r").read())+str(open("index.html","r").read()).format(str(bearer_token[0].split(":")[1]),app.config["HOME"])
+    return str(open("index_style.css","r").read())+str(open("index.html","r").read()).format(str(bearer_token[0].split(":")[1]),app.config["SERVICES"])
 
 @app.route("/services")
 def services():
     #getr=requests.get("http://localhost:5000/gif")
      #send_file(getr.text,mimetype='image/gif')
-    return str(open("main_style.css","r").read())+str(open("main.html","r").read()).format(app.config['SERVICES'],app.config['SERVICES'],app.config['SERVICES'])
+    if session:
+        return str(open("main_style.css","r").read())+str(open("main.html","r").read()).format(app.config['HOME'],app.config['HOME'],app.config['HOME'])
+    return genAuth()
 @app.route("/addition")
 def add():
     args=request.args
     x=int(args.get('fnum'))
     y=int(args.get('lnum'))
-    if session['name']:
+    if session:
         result=requests.get("{}?x={}&y={}".format(app.config['ADDITION'],x,y))
         
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
@@ -47,7 +49,7 @@ def subtract():
     args=request.args
     x=int(args.get('fnum'))
     y=int(args.get('lnum'))
-    if session['name']:
+    if session:
         result=requests.get("{}?x={}&y={}".format(app.config['SUBTRACTION'],x,y))
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
                                                                                             successfully and the DIFFERENCE is given below""",result.text)
@@ -57,9 +59,9 @@ def multiply():
     args=request.args
     x=int(args.get('fnum'))
     y=int(args.get('lnum'))
-    if session['name']:
+    if session:
         result=requests.get("{}?x={}&y={}".format(app.config['MULTIPLICATION'],x,y))
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
                                                                                             successfully and the PRODUCT is given below""",result.text)
     return genAuth()
-app.run(debug=False,port=80)hello
+app.run(debug=False,port=80,host="0.0.0.0")
