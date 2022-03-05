@@ -64,4 +64,4 @@ def multiply():
         return str(open("style.css","r").read())+str(open("result.html","r").read()).format("""Your request has been processed 
                                                                                             successfully and the PRODUCT is given below""",result.text)
     return genAuth()
-app.run(debug=False,port=80,host="0.0.0.0")
+#app.run(debug=False,port=80,host="0.0.0.0")
